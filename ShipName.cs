@@ -2,7 +2,7 @@
 /// Ship name.
 /// </summary>
 public enum ShipName
-{
+{None = 0,
 	None = 0,
 
 	/// <summary>
@@ -23,10 +23,10 @@ public enum ShipName
 	/// <summary>
 	/// The battleship.
 	/// </summary>
-	Battleship = 4,
+	Battleship = 3,
 
 	/// <summary>
 	/// Aircraft carrier.
 	/// </summary>
-	AircraftCarrier = 5
+	AircraftCarrier = 3
 }
