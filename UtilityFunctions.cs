@@ -319,6 +319,11 @@ static class UtilityFunctions
             case object _ when GameState.EndingGame:
                 {
                     SwinGame.DrawBitmap(GameImage("Discovery"), 0, 0);
+			private void exitBtn_Click(object sender, EventArgs e)
+					{
+						EndCurrentState();
+					}
+				SwinGame.DrawBitmap(GameImage("Discovery"), 0, 0)
                     break;
                 }
 
@@ -328,6 +333,11 @@ static class UtilityFunctions
             case object _ when GameState.Deploying:
                 {
                     SwinGame.DrawBitmap(GameImage("Deploy"), 0, 0);
+			private void exitBtn_Click(object sender, EventArgs e)
+					{
+						EndCurrentState();
+					}
+				SwinGame.DrawBitmap(GameImage("Discovery"), 0, 0)
                     break;
                 }
 
