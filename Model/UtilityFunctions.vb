@@ -202,8 +202,17 @@ Module UtilityFunctions
                 SwinGame.DrawBitmap(GameImage("Menu"), 0, 0)
             Case GameState.Discovering, GameState.EndingGame
                 SwinGame.DrawBitmap(GameImage("Discovery"), 0, 0)
+                    private void exitBtn_Click(object sender, EventArgs e)
+					{
+						EndCurrentState();
+					}
             Case GameState.Deploying
                 SwinGame.DrawBitmap(GameImage("Deploy"), 0, 0)
+                    private void exitBtn_Click(object sender, EventArgs e)
+					{
+						EndCurrentState();
+					}
+				SwinGame.DrawBitmap(GameImage("Discovery"), 0, 0)
             Case Else
                 SwinGame.ClearScreen()
         End Select
