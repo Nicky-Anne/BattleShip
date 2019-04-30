@@ -160,6 +160,8 @@ static class DeploymentController
         SwinGame.DrawBitmap(GameResources.GameImage("RandomButton"), RANDOM_BUTTON_LEFT, TOP_BUTTONS_TOP);
 
         UtilityFunctions.DrawMessage();
+        
+        SwinGame.DrawText("Press 'esc' to exit the game!", Color.White, 40, 570);
     }
 
     /// <summary>
