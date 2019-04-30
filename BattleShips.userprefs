@@ -12,7 +12,7 @@
       <File FileName="src\GameResources.cs" Line="9" Column="23" />
       <File FileName="src\Model\AIEasyPlayer.cs" Line="76" Column="66" />
       <File FileName="src\GameController.cs" Line="109" Column="10" />
-      <File FileName="src\HighScoreController.cs" Line="129" Column="61" />
+      <File FileName="src\HighScoreController.cs" Line="191" Column="31" />
       <File FileName="BattleShip Status" />
     </Files>
   </MonoDevelop.Ide.Workbench>
