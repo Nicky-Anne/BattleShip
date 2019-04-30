@@ -81,7 +81,7 @@ static class HighScoreController
 
             line = input.ReadLine();
 
-            s.Name = line.Substring(0, NAME_WIDTH);
+			s.Name = line;
             s.Value = System.Convert.ToInt32(System.Convert.ToInt32(line.Substring(NAME_WIDTH)));
             _Scores.Add(s);
         }
@@ -125,7 +125,8 @@ static class HighScoreController
 
         if (_Scores.Count == 0)
             LoadScores();
-
+		
+		SwinGame.FillRectangle (SwinGame.RGBAColor (1, 57, 86, 255),350,10,400,450);
         SwinGame.DrawText("   High Scores   ", Color.White, GameResources.GameFont("Courier"), SCORES_LEFT, SCORES_HEADING);
 
         // For all of the scores
@@ -136,11 +137,11 @@ static class HighScoreController
 
             s = _Scores[i];
 
-            // for scores 1 - 9 use 01 - 09
-            if (i < 9)
-                SwinGame.DrawText(" " + System.Convert.ToString(i + 1) + ":   " + s.Name + "   " + System.Convert.ToString(s.Value), Color.White, GameResources.GameFont("Courier"), SCORES_LEFT, SCORES_TOP + i * SCORE_GAP);
-            else
-                SwinGame.DrawText(i + 1 + ":   " + s.Name + "   " + System.Convert.ToString(s.Value), Color.White, GameResources.GameFont("Courier"), SCORES_LEFT, SCORES_TOP + i * SCORE_GAP);
+			// for scores 1 - 9 use 01 - 09
+			if (i < 9)
+				SwinGame.DrawText (" " + System.Convert.ToString (i + 1) + ":   " + s.Name + "   " + System.Convert.ToString (s.Value), Color.White, GameResources.GameFont ("Courier"), SCORES_LEFT, SCORES_TOP + i * SCORE_GAP);
+			else
+				SwinGame.DrawText (i + 1 + ":   " + s.Name + "   " + System.Convert.ToString (s.Value), Color.White, GameResources.GameFont("Courier"), SCORES_LEFT, SCORES_TOP + i * SCORE_GAP);
         }
     }
 
