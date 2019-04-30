@@ -205,7 +205,18 @@ static class MenuController
 
             if (SwinGame.MouseDown(MouseButton.LeftButton) & IsMouseOverMenu(i, level, xOffset))
                 SwinGame.DrawRectangle(HIGHLIGHT_COLOR, btnLeft, btnTop, BUTTON_WIDTH, BUTTON_HEIGHT);
+			
         }
+		SwinGame.FillRectangle (SwinGame.RGBAColor (0, 0, 0, 255), 23, 420, 299, 140);
+
+		SwinGame.DrawText ("Instructions", Color.White, 27, 430);
+		SwinGame.DrawText ("You own and control 5 ships. All you", Color.White, 27, 445);
+		SwinGame.DrawText ("have to do is hide your ships, find", Color.White, 27, 460);
+		SwinGame.DrawText ("your enemy's ships and destroy them", Color.White, 27, 475);
+		SwinGame.DrawText ("by guessing their coordinates on the", Color.White, 27, 490);
+		SwinGame.DrawText ("sea grid. If the whole ship is hit it", Color.White, 27, 505);
+		SwinGame.DrawText ("sinks and the first one to sink", Color.White, 27, 520);
+		SwinGame.DrawText ("opponent's fleet wins. GoodLuck!", Color.White, 27, 535);
     }
 
     /// <summary>
