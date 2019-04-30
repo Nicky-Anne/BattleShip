@@ -107,7 +107,7 @@ public static class GameController
         }
         else
         {
-            _ai = new AIHardPlayer(_theGame);
+            _ai = new AIEasyPlayer(_theGame);
         }
 
         _human = new Player(_theGame);
