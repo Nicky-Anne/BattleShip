@@ -14,6 +14,29 @@ using SwinGameSDK;
 
 public static class GameResources
 {
+    public static bool Muted = false;
+
+    public static void MuteButtonPressed() 
+    {
+        Muted = !Muted;
+
+        if (Muted) 
+        {
+            foreach (var kvp in _Sounds) 
+            {
+                Audio.StopSoundEffect(kvp.Value);
+            }
+
+            Audio.StopSoundEffect(_StartSound);
+            Audio.SetMusicVolume(0f);
+        } 
+        else 
+        {
+            Audio.SetMusicVolume(1f);
+            Audio.PlaySoundEffect(_StartSound);
+        }
+    }
+    
     private static void LoadFonts()
     {
         NewFont("ArialLarge", "arial.ttf", 80);
@@ -63,6 +86,7 @@ public static class GameResources
     private static void LoadMusic()
     {
         NewMusic("BGM", "Pirates.mp3");
+        NewMusic ("Off", "off.wav");
     }
 
     /// <summary>
@@ -106,7 +130,14 @@ public static class GameResources
 
     public static Music GameMusic(string music)
     {
-        return _Music[music];
+		if(GameController.Music)
+		{
+			return _Music[music];
+		}
+		else
+		{
+			return _Music ["Off"];
+		}
     }
 
     private static Dictionary<string, Bitmap> _Images = new Dictionary<string, Bitmap>();
