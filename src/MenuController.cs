@@ -31,7 +31,7 @@ static class MenuController
     ///     ''' <remarks>
     ///     ''' These are the text captions for the menu items.
     ///     ''' </remarks>
-    private readonly static string[][] _menuStructure = new[] { new string[] { "PLAY", "SETUP", "SCORES", "QUIT" }, new string[] { "RETURN", "SURRENDER", "QUIT" }, new string[] { "EASY", "MEDIUM", "HARD" } };
+    private readonly static string[][] _menuStructure = new[] { new string[] { "PLAY", "SETUP", "SCORES", "MUTE", "QUIT" }, new string[] { "RETURN", "SURRENDER", "QUIT" }, new string[] { "EASY", "MEDIUM", "HARD" } };
 
     private const int MENU_TOP = 575;
     private const int MENU_LEFT = 30;
@@ -48,7 +48,8 @@ static class MenuController
     private const int MAIN_MENU_PLAY_BUTTON = 0;
     private const int MAIN_MENU_SETUP_BUTTON = 1;
     private const int MAIN_MENU_TOP_SCORES_BUTTON = 2;
-    private const int MAIN_MENU_QUIT_BUTTON = 3;
+    private const int MAIN_MENU_MUTE_BUTTON = 3;	
+    private const int MAIN_MENU_QUIT_BUTTON = 4;
 
     private const int SETUP_MENU_EASY_BUTTON = 0;
     private const int SETUP_MENU_MEDIUM_BUTTON = 1;
@@ -203,9 +204,11 @@ static class MenuController
             // SwinGame.FillRectangle(Color.White, btnLeft, btnTop, BUTTON_WIDTH, BUTTON_HEIGHT)
 			SwinGame.DrawTextLines(_menuStructure[menu][i], MENU_COLOR, Color.Black, GameResources.GameFont("Menu"), FontAlignment.AlignCenter, btnLeft + TEXT_OFFSET, btnTop + TEXT_OFFSET, BUTTON_WIDTH, BUTTON_HEIGHT);
 
+	    if (GameResources.Muted && i == MAIN_MENU_MUTE_BUTTON)
+		    btnText = "UNMUTE";
+		
             if (SwinGame.MouseDown(MouseButton.LeftButton) & IsMouseOverMenu(i, level, xOffset))
                 SwinGame.DrawRectangle(HIGHLIGHT_COLOR, btnLeft, btnTop, BUTTON_WIDTH, BUTTON_HEIGHT);
-			
         }
 		SwinGame.FillRectangle (SwinGame.RGBAColor (0, 0, 0, 255), 23, 420, 299, 140);
 
@@ -298,6 +301,12 @@ static class MenuController
                     GameController.AddNewState(GameState.ViewingHighScores);
                     break;
                 }
+			
+	    case MAIN_MENU_MUTE_BUTTON:
+		{
+		    GameResources.MuteButtonPressed ();
+		    break;
+		}
 
             case MAIN_MENU_QUIT_BUTTON:
                 {
