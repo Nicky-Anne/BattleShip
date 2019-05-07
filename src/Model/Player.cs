@@ -120,7 +120,9 @@ public class Player : IEnumerable<Ship>
 
 	public int Score {
 		get {
-			if (IsDestroyed) {
+			if (IsDestroyed) 
+			{
+				GameLogic.GameLogic._time.Stop ();
 				return 0;
 			} else {
 				return (Hits * 12) - Shots - (PlayerGrid.ShipsKilled * 20);

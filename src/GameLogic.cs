@@ -10,7 +10,7 @@ namespace GameLogic
 {
     public class GameLogic
     {
-
+		public static Stopwatch _time = new Stopwatch ();
         public static void Main()
         {
             // Opens a new Graphics Window
@@ -27,9 +27,15 @@ namespace GameLogic
 
                 GameController.HandleUserInput();
                 GameController.DrawScreen();
-            }
+				if (_time.ElapsedMilliseconds >= 5000)
+				{
+					_time.Stop ();
+					
+					GameController.CurrentState = GameState.EndingGame;
+				}
+			}
 
-
+			_time.Stop ();
             SwinGame.StopMusic();
 
             // Free Resources and Close Audio, to end the program.

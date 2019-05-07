@@ -34,6 +34,7 @@ static class DiscoveryController
 
         if (SwinGame.MouseClicked(MouseButton.LeftButton))
             DoAttack();
+		GameLogic.GameLogic._time.Start ();
     }
 
     /// <summary>
@@ -79,6 +80,10 @@ static class DiscoveryController
         SwinGame.DrawText(GameController.HumanPlayer.Hits.ToString(), Color.White, GameResources.GameFont("Menu"), SCORES_LEFT, HITS_TOP);
         SwinGame.DrawText(GameController.HumanPlayer.Missed.ToString(), Color.White, GameResources.GameFont("Menu"), SCORES_LEFT, SPLASH_TOP);
         
+		SwinGame.DrawText ("Time is " + GameLogic.GameLogic._time.Elapsed.ToString ("mm\\:ss\\.ff"), Color.White, 95, 105);
+		SwinGame.DrawText ("Time is " + GameLogic.GameLogic._time.ElapsedMilliseconds, Color.White, 95, 125);
+
+
         SwinGame.DrawText("Press 'esc' to exit the game!", Color.White, 40, 570);
     }
 }

@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 // using System.Data;
 using System.Diagnostics;
+using SwinGameSDK;
 /// <summary>
 /// The BattleShipsGame controls a big part of the game. It will add the two players
 /// to the game and make sure that both players ships are all deployed before starting the game.
@@ -82,6 +83,17 @@ public class BattleShipsGame
 		AttackResult newAttack = default(AttackResult);
 		int otherPlayer = (_playerIndex + 1) % 2;
 
+
+		/*if (GameLogic.GameLogic._time.ElapsedMilliseconds >= 5000) 
+		{
+			if (!SwinGame.MouseClicked (MouseButton.LeftButton)) 
+			{
+				GameController.CurrentState = GameState.EndingGame;
+				GameLogic.GameLogic._time.Stop ();
+
+			}
+		}*/
+
 		newAttack = Player.Shoot(row, col);
 
 		//Will exit the game when all players ships are destroyed
@@ -102,7 +114,7 @@ public class BattleShipsGame
         {
             _playerIndex = otherPlayer;
         }
-
+		GameLogic.GameLogic._time.Reset ();
         return newAttack;
 	}
 }

@@ -58,6 +58,7 @@ public static class GameController
         {
             return _state.Peek();
         }
+		set { _state.Push (value);}
     }
 
     /// <summary>
