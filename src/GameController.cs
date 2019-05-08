@@ -23,7 +23,7 @@ using SwinGameSDK;
 /// ''' </summary>
 public static class GameController
 {
-	private static String _music = "BGM";
+	private static String _music = "BGM1";
 	public static Boolean Musicstate;
 	public static Boolean Music = true;
 
@@ -40,10 +40,11 @@ public static class GameController
 		get { return _music; }
 	}
 
-	public static void SetMusic (String m)
+	public static void SetMusic (String m) //Recently Added
 	{
 		_music = m;
 		Musicstate = true;
+		SwinGame.PlayMusic (GameResources.GameMusic (m));
 	}
     
     /// <summary>
@@ -342,6 +343,10 @@ public static class GameController
 		{
 			MenuController.HandleSetupMenuInput ();
 		} 
+		else if (CurrentState == GameState.ChangingMusic) //Recently Added
+        {
+			MenuController.HandleMusicMenuInput ();
+		}
 		else if (CurrentState == GameState.Deploying) {
 			DeploymentController.HandleDeploymentInput ();
 		}
@@ -387,6 +392,10 @@ public static class GameController
 		{
 			MenuController.DrawSettings ();
 		} 
+		 else if (CurrentState == GameState.ChangingMusic) //Recently Added
+        {
+			MenuController.DrawMusicMenu ();
+		}
 		else if (CurrentState == GameState.Deploying)
 		{
 			DeploymentController.DrawDeployment ();
@@ -449,4 +458,6 @@ public static class GameController
     {
         _aiSetting = setting;
     }
+
+
 }

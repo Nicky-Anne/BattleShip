@@ -39,6 +39,11 @@ public enum GameState
 	AlteringOption, //RECENTLY ADDED
 
 	/// <summary>
+	/// The player can change the background  music.
+	/// </summary>
+	ChangingMusic,
+
+	/// <summary>
 	/// Players are deploying their ships
 	/// </summary>
 	Deploying,

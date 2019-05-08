@@ -31,7 +31,7 @@ static class MenuController
     ///     ''' <remarks>
     ///     ''' These are the text captions for the menu items.
     ///     ''' </remarks>
-	private readonly static string[][] _menuStructure = new[] { new string[] { "PLAY", "SETUP","SCREEN","SCORES", "MUTE", "QUIT" }, new string[] { "RETURN", "SURRENDER", "QUIT" }, new string[] { "EASY", "MEDIUM", "HARD" }, new string [] {"FULLSCREEN" , " BORDERLESS" } };
+	private readonly static string[][] _menuStructure = new[] { new string[] { "PLAY", "SETUP","SCREEN","MUSIC","SCORES", "MUTE", "QUIT" }, new string[] { "RETURN", "SURRENDER", "QUIT" }, new string[] { "EASY", "MEDIUM", "HARD" }, new string [] {"FULLSCREEN" , " BORDERLESS" } ,new string [] { "MUSIC 1", "MUSIC 2", "MUSIC 3" } };
 
     private const int MENU_TOP = 575;
     private const int MENU_LEFT = 30;
@@ -45,13 +45,16 @@ static class MenuController
     private const int GAME_MENU = 1;
     private const int SETUP_MENU = 2;
 	private const int SCREEN_MENU = 3; //recently added
+	private const int MUSIC_MENU = 4;
+
 
     private const int MAIN_MENU_PLAY_BUTTON = 0;
     private const int MAIN_MENU_SETUP_BUTTON = 1;
 	private const int MAIN_MENU_SCREEN_BUTTON = 2; //recently added
-    private const int MAIN_MENU_TOP_SCORES_BUTTON = 3;
-	private const int MAIN_MENU_MUTE_BUTTON = 4;
-	private const int MAIN_MENU_QUIT_BUTTON = 5;
+	private const int MAIN_MUSIC_SETUP_BUTTON = 3;
+    private const int MAIN_MENU_TOP_SCORES_BUTTON = 4;
+	private const int MAIN_MENU_MUTE_BUTTON = 5;
+	private const int MAIN_MENU_QUIT_BUTTON = 6;
 
     private const int SETUP_MENU_EASY_BUTTON = 0;
     private const int SETUP_MENU_MEDIUM_BUTTON = 1;
@@ -64,6 +67,10 @@ static class MenuController
 
 	private const int SCREEN_MENU_FULLSCREEN_BUTTON = 0; //recently added
 	private const int SCREEN_MENU_BORDERLESS_BUTTON = 1; //recently added
+
+	private const int MUSIC1 = 0;
+	private const int MUSIC2 = 1;
+	private const int MUSIC3 = 2;
 
     private readonly static Color MENU_COLOR = SwinGame.RGBAColor(255, 255, 255, 255);
     private readonly static Color HIGHLIGHT_COLOR = SwinGame.RGBAColor(1, 57, 86, 255);
@@ -108,6 +115,18 @@ static class MenuController
 	{
 		bool handled = false;
 		handled = HandleMenuInput (SCREEN_MENU, 1, 2); //RECENTLY ADDED
+
+		if (!handled) {
+			HandleMenuInput (MAIN_MENU, 0, 0);
+		}
+	}
+	/// <summary>
+	/// Handles the music menu input.
+	/// </summary>
+	public static void HandleMusicMenuInput ()
+	{
+		bool handled = false;
+		handled = HandleMenuInput (MUSIC_MENU, 1, 3);
 
 		if (!handled) {
 			HandleMenuInput (MAIN_MENU, 0, 0);
@@ -159,7 +178,8 @@ static class MenuController
     {
         // Clears the Screen to Black
         // SwinGame.DrawText("Main Menu", Color.White, GameFont("ArialLarge"), 50, 50)
-
+		SwinGame.DrawTextLines ("MUSIC : " + GameController.MusicOption, Color.White, Color.Transparent, GameResources.GameFont ("Menu"), FontAlignment.AlignCenter, 310, 493, SwinGame.ScreenWidth (), SwinGame.ScreenHeight ());
+        //Recently Added
         DrawButtons(MAIN_MENU);
     }
 
@@ -199,6 +219,18 @@ static class MenuController
     }
 
 	/// <summary>
+	/// Draws the music menu.
+	/// </summary>
+	public static void DrawMusicMenu ()     //Recently Added
+	{
+		//Clears the Screen to Black
+		//SwinGame.DrawText("Settings", Color.White, GameFont("ArialLarge"), 50, 50)
+
+		DrawButtons (MAIN_MENU);
+		DrawButtons (MUSIC_MENU, 1, 3);
+	}
+
+	/// <summary>
 	/// Draws the screen option menu to the screen.
 	/// </summary>
 	/// <remarks>
@@ -228,13 +260,14 @@ static class MenuController
         int i = 0;
         for (i = 0; i <= _menuStructure[menu].Length - 1; i++)
         {
+			string bton = _menuStructure [menu] [i];
             int btnLeft = 0;
             btnLeft = MENU_LEFT + BUTTON_SEP * (i + xOffset);
             // SwinGame.FillRectangle(Color.White, btnLeft, btnTop, BUTTON_WIDTH, BUTTON_HEIGHT)
 			SwinGame.DrawTextLines(_menuStructure[menu][i], MENU_COLOR, Color.Black, GameResources.GameFont("Menu"), FontAlignment.AlignCenter, btnLeft + TEXT_OFFSET, btnTop + TEXT_OFFSET, BUTTON_WIDTH, BUTTON_HEIGHT);
 
 	    if (GameResources.Muted && i == MAIN_MENU_MUTE_BUTTON)
-		   // btnText = "UNMUTE";
+		   bton = "UNMUTE";
 		
             if (SwinGame.MouseDown(MouseButton.LeftButton) & IsMouseOverMenu(i, level, xOffset))
                 SwinGame.DrawRectangle(HIGHLIGHT_COLOR, btnLeft, btnTop, BUTTON_WIDTH, BUTTON_HEIGHT);
@@ -303,6 +336,10 @@ static class MenuController
 				PerformScreenMenuAction (button); //RECENTLY ADDED
 				break;
 			}
+		case MUSIC_MENU: {
+				PerformMusicMenuAction (button);  //Recently Added
+				break;
+			}
 		}
     }
 
@@ -331,11 +368,16 @@ static class MenuController
 					GameController.AddNewState (GameState.AlteringOption); //RECENTLY ADDED
 					break;
 				}
+			case MAIN_MUSIC_SETUP_BUTTON: {
+				GameController.AddNewState (GameState.ChangingMusic);
+				break;
+			}
             case MAIN_MENU_TOP_SCORES_BUTTON:
                 {
                     GameController.AddNewState(GameState.ViewingHighScores);
                     break;
                 }
+
 			
 	    case MAIN_MENU_MUTE_BUTTON:
 		{
@@ -381,6 +423,37 @@ static class MenuController
         GameController.EndCurrentState();
     }
 
+	/// <summary>
+	/// Performs the music menu action.
+	/// </summary>
+	/// <param name="button">Button.</param>
+	private static void PerformMusicMenuAction (int button)
+	{
+
+		switch (button) {
+		case MUSIC1: {
+				GameController.SetMusic ("BGM1");
+				break;
+			}
+		case MUSIC2: {
+				GameController.SetMusic ("BGM2");
+				break;
+			}
+		case MUSIC3: {
+				GameController.SetMusic ("BGM3");
+				break;
+			}
+			//case TURN_OFF:
+			//	GameController.SetMusic ("Off");
+			//	break;
+			//case TURN_ON:
+			//	GameController.SetMusic ("Background");
+			//	break;
+		}
+
+		GameController.EndCurrentState ();
+	}
+
     /// <summary>
     ///     ''' The game menu was clicked, perform the button's action.
     ///     ''' </summary>
@@ -397,6 +470,7 @@ static class MenuController
 
             case GAME_MENU_SURRENDER_BUTTON:
                 {
+				SwinGame.PlayMusic (GameResources.GameMusic ("BGM1"));
                     GameController.EndCurrentState(); // end game menu
                     GameController.EndCurrentState(); // end game
                     break;
