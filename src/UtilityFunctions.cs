@@ -261,7 +261,7 @@ static class UtilityFunctions
     public static void DrawBackground()
     {
 
-        if ((((GameController.CurrentState == GameState.ViewingMainMenu) || (GameController.CurrentState == GameState.ViewingGameMenu)) || (GameController.CurrentState == GameState.AlteringSettings)) || (GameController.CurrentState == GameState.ViewingHighScores))
+		if (((((GameController.CurrentState == GameState.ViewingMainMenu) || (GameController.CurrentState == GameState.ViewingGameMenu)) || (GameController.CurrentState == GameState.AlteringSettings)) || (GameController.CurrentState == GameState.ViewingHighScores)) || (GameController.CurrentState == GameState.AlteringOption))
         {
             SwinGame.DrawBitmap(GameResources.GameImage("Menu"), 0, 0);
         }

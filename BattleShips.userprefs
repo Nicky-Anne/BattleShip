@@ -6,17 +6,18 @@
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.Workbench ActiveDocument="BattleShip Status">
     <Files>
-      <File FileName="src\MenuController.cs" Line="289" Column="48" />
-      <File FileName="src\UtilityFunctions.cs" Line="76" Column="6" />
+      <File FileName="src\MenuController.cs" Line="1" Column="1" />
+      <File FileName="src\UtilityFunctions.cs" Line="1" Column="1" />
       <File FileName="src\GameResources.cs" Line="9" Column="23" />
       <File FileName="src\Model\AIEasyPlayer.cs" Line="76" Column="66" />
-      <File FileName="src\GameController.cs" Line="220" Column="4" />
+      <File FileName="src\GameController.cs" Line="1" Column="1" />
       <File FileName="src\GameLogic.cs" Line="39" Column="34" />
       <File FileName="src\DiscoveryController.cs" Line="85" Column="3" />
       <File FileName="src\Model\BattleShipsGame.cs" Line="123" Column="36" />
       <File FileName="src\EndingGameController.cs" Line="44" Column="38" />
       <File FileName="src\Model\Player.cs" Line="125" Column="39" />
       <File FileName="src\HighScoreController.cs" Line="32" Column="3" />
+      <File FileName="src\GameState.cs" Line="1" Column="1" />
       <File FileName="BattleShip Status" />
     </Files>
   </MonoDevelop.Ide.Workbench>

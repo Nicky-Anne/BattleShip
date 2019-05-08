@@ -31,12 +31,12 @@ static class MenuController
     ///     ''' <remarks>
     ///     ''' These are the text captions for the menu items.
     ///     ''' </remarks>
-    private readonly static string[][] _menuStructure = new[] { new string[] { "PLAY", "SETUP", "SCORES", "MUTE", "QUIT" }, new string[] { "RETURN", "SURRENDER", "QUIT" }, new string[] { "EASY", "MEDIUM", "HARD" } };
+	private readonly static string[][] _menuStructure = new[] { new string[] { "PLAY", "SETUP","SCREEN","SCORES", "MUTE", "QUIT" }, new string[] { "RETURN", "SURRENDER", "QUIT" }, new string[] { "EASY", "MEDIUM", "HARD" }, new string [] {"FULLSCREEN" , " BORDERLESS" } };
 
     private const int MENU_TOP = 575;
     private const int MENU_LEFT = 30;
     private const int MENU_GAP = 0;
-    private const int BUTTON_WIDTH = 75;
+    private const int BUTTON_WIDTH = 83;
     private const int BUTTON_HEIGHT = 15;
     private const int BUTTON_SEP = BUTTON_WIDTH + MENU_GAP;
     private const int TEXT_OFFSET = 0;
@@ -44,12 +44,14 @@ static class MenuController
     private const int MAIN_MENU = 0;
     private const int GAME_MENU = 1;
     private const int SETUP_MENU = 2;
+	private const int SCREEN_MENU = 3; //recently added
 
     private const int MAIN_MENU_PLAY_BUTTON = 0;
     private const int MAIN_MENU_SETUP_BUTTON = 1;
-    private const int MAIN_MENU_TOP_SCORES_BUTTON = 2;
-    private const int MAIN_MENU_MUTE_BUTTON = 3;	
-    private const int MAIN_MENU_QUIT_BUTTON = 4;
+	private const int MAIN_MENU_SCREEN_BUTTON = 2; //recently added
+    private const int MAIN_MENU_TOP_SCORES_BUTTON = 3;
+	private const int MAIN_MENU_MUTE_BUTTON = 4;
+	private const int MAIN_MENU_QUIT_BUTTON = 5;
 
     private const int SETUP_MENU_EASY_BUTTON = 0;
     private const int SETUP_MENU_MEDIUM_BUTTON = 1;
@@ -59,6 +61,9 @@ static class MenuController
     private const int GAME_MENU_RETURN_BUTTON = 0;
     private const int GAME_MENU_SURRENDER_BUTTON = 1;
     private const int GAME_MENU_QUIT_BUTTON = 2;
+
+	private const int SCREEN_MENU_FULLSCREEN_BUTTON = 0; //recently added
+	private const int SCREEN_MENU_BORDERLESS_BUTTON = 1; //recently added
 
     private readonly static Color MENU_COLOR = SwinGame.RGBAColor(255, 255, 255, 255);
     private readonly static Color HIGHLIGHT_COLOR = SwinGame.RGBAColor(1, 57, 86, 255);
@@ -95,6 +100,19 @@ static class MenuController
     {
         HandleMenuInput(GAME_MENU, 0, 0);
     }
+
+	/// <summary>
+	/// Handles the processing of user input when selecting screen option
+	/// </summary>
+	public static void HandleOptionMenuInput ()
+	{
+		bool handled = false;
+		handled = HandleMenuInput (SCREEN_MENU, 1, 2); //RECENTLY ADDED
+
+		if (!handled) {
+			HandleMenuInput (MAIN_MENU, 0, 0);
+		}
+	}
 
     /// <summary>
     ///     ''' Handles input for the specified menu.
@@ -180,6 +198,17 @@ static class MenuController
         DrawButtons(menu, 0, 0);
     }
 
+	/// <summary>
+	/// Draws the screen option menu to the screen.
+	/// </summary>
+	/// <remarks>
+	/// Also shows the main menu
+	/// </remarks>
+	public static void DrawOption ()
+	{
+		DrawButtons (MAIN_MENU);
+		DrawButtons (SCREEN_MENU, 1, 2); //RECENTLY ADDED
+	}
     /// <summary>
     ///     ''' Draws the menu at the indicated level.
     ///     ''' </summary>
@@ -209,6 +238,7 @@ static class MenuController
 		
             if (SwinGame.MouseDown(MouseButton.LeftButton) & IsMouseOverMenu(i, level, xOffset))
                 SwinGame.DrawRectangle(HIGHLIGHT_COLOR, btnLeft, btnTop, BUTTON_WIDTH, BUTTON_HEIGHT);
+			
         }
 		SwinGame.FillRectangle (SwinGame.RGBAColor (0, 0, 0, 255), 23, 420, 299, 140);
 
@@ -254,26 +284,26 @@ static class MenuController
     ///     ''' <param name="button">the index of the button that was clicked</param>
     private static void PerformMenuAction(int menu, int button)
     {
-        switch (menu)
-        {
-            case MAIN_MENU:
-                {
-                    PerformMainMenuAction(button);
-                    break;
-                }
+		switch (menu) {
+		case MAIN_MENU: {
+				PerformMainMenuAction (button);
+				break;
+			}
 
-            case SETUP_MENU:
-                {
-                    PerformSetupMenuAction(button);
-                    break;
-                }
+		case SETUP_MENU: {
+				PerformSetupMenuAction (button);
+				break;
+			}
 
-            case GAME_MENU:
-                {
-                    PerformGameMenuAction(button);
-                    break;
-                }
-        }
+		case GAME_MENU: {
+				PerformGameMenuAction (button);
+				break;
+			}
+		case SCREEN_MENU: {
+				PerformScreenMenuAction (button); //RECENTLY ADDED
+				break;
+			}
+		}
     }
 
     /// <summary>
@@ -296,6 +326,11 @@ static class MenuController
                     break;
                 }
 
+			case MAIN_MENU_SCREEN_BUTTON:
+				{
+					GameController.AddNewState (GameState.AlteringOption); //RECENTLY ADDED
+					break;
+				}
             case MAIN_MENU_TOP_SCORES_BUTTON:
                 {
                     GameController.AddNewState(GameState.ViewingHighScores);
@@ -374,4 +409,25 @@ static class MenuController
                 }
         }
     }
+
+
+	//<summary>
+	// The screen option menu was clicked, perform the button's action.
+	// </summary>
+	// <param name="button">the button pressed</param>
+	public static void PerformScreenMenuAction (int button) //RECENTLY ADDED FUNCTION
+	{
+		switch (button)
+		{
+			case SCREEN_MENU_FULLSCREEN_BUTTON: {
+				SwinGame.ToggleFullScreen ();
+
+				break;}
+			case SCREEN_MENU_BORDERLESS_BUTTON: {
+				SwinGame.ToggleWindowBorder ();
+				break;}
+		}
+		//Always end state - handles exit button as well
+		GameController.EndCurrentState ();
+	}
 }

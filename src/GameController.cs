@@ -330,33 +330,36 @@ public static class GameController
         // Read incoming input events
         SwinGame.ProcessEvents();
 
-        if (CurrentState == GameState.ViewingMainMenu)
-        {
-            MenuController.HandleMainMenuInput();
-        }
-        else if (CurrentState == GameState.ViewingGameMenu)
-        {
-            MenuController.HandleGameMenuInput();
-        }
-        else if (CurrentState == GameState.AlteringSettings)
-        {
-            MenuController.HandleSetupMenuInput();
-        }
-        else if (CurrentState == GameState.Deploying)
-        {
-            DeploymentController.HandleDeploymentInput();
-        }
-        else if (CurrentState == GameState.Discovering)
-        {
-            DiscoveryController.HandleDiscoveryInput();
-        }
-        else if (CurrentState == GameState.EndingGame)
-        {
-            EndingGameController.HandleEndOfGameInput();
-        }
-        else if (CurrentState == GameState.ViewingHighScores)
-        {
-            HighScoreController.HandleHighScoreInput();
+		if (CurrentState == GameState.ViewingMainMenu) 
+		{
+			MenuController.HandleMainMenuInput ();
+		} 
+		else if (CurrentState == GameState.ViewingGameMenu) 
+		{
+			MenuController.HandleGameMenuInput ();
+		} 
+		else if (CurrentState == GameState.AlteringSettings) 
+		{
+			MenuController.HandleSetupMenuInput ();
+		} 
+		else if (CurrentState == GameState.Deploying) {
+			DeploymentController.HandleDeploymentInput ();
+		}
+		else if (CurrentState == GameState.Discovering)
+		{
+			DiscoveryController.HandleDiscoveryInput ();
+		} 
+		else if (CurrentState == GameState.AlteringOption) //RECENTLY ADDED
+		{
+			MenuController.HandleOptionMenuInput ();
+		}
+		else if (CurrentState == GameState.EndingGame)
+		{
+			EndingGameController.HandleEndOfGameInput ();
+		} 
+		else if (CurrentState == GameState.ViewingHighScores)
+		{
+			HighScoreController.HandleHighScoreInput();
         }
 
         UtilityFunctions.UpdateAnimations();
@@ -372,34 +375,37 @@ public static class GameController
     {
         UtilityFunctions.DrawBackground();
 
-        if (CurrentState == GameState.ViewingMainMenu)
-        {
-            MenuController.DrawMainMenu();
-        }
-        else if (CurrentState == GameState.ViewingGameMenu)
-        {
-            MenuController.DrawGameMenu();
-        }
-        else if (CurrentState == GameState.AlteringSettings)
-        {
-            MenuController.DrawSettings();
-        }
-        else if (CurrentState == GameState.Deploying)
-        {
-            DeploymentController.DrawDeployment();
-        }
-        else if (CurrentState == GameState.Discovering)
-        {
-            DiscoveryController.DrawDiscovery();
-        }
-        else if (CurrentState == GameState.EndingGame)
-        {
-            EndingGameController.DrawEndOfGame();
-        }
-        else if (CurrentState == GameState.ViewingHighScores)
-        {
-            HighScoreController.DrawHighScores();
-        }
+		if (CurrentState == GameState.ViewingMainMenu)
+		{
+			MenuController.DrawMainMenu ();
+		} 
+		else if (CurrentState == GameState.ViewingGameMenu)
+		{
+			MenuController.DrawGameMenu ();
+		} 
+		else if (CurrentState == GameState.AlteringSettings)
+		{
+			MenuController.DrawSettings ();
+		} 
+		else if (CurrentState == GameState.Deploying)
+		{
+			DeploymentController.DrawDeployment ();
+		} else if (CurrentState == GameState.AlteringOption)
+		{
+			MenuController.DrawOption (); //RECENTLY ADDED
+		} 
+		else if (CurrentState == GameState.Discovering) 
+		{
+			DiscoveryController.DrawDiscovery ();
+		}
+		else if (CurrentState == GameState.EndingGame)
+		{
+			EndingGameController.DrawEndOfGame ();
+		}
+		else if (CurrentState == GameState.ViewingHighScores) 
+		{
+			HighScoreController.DrawHighScores ();
+		}
 
         UtilityFunctions.DrawAnimations();
 
