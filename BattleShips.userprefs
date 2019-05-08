@@ -14,7 +14,7 @@
       <File FileName="src\GameLogic.cs" Line="39" Column="34" />
       <File FileName="src\DiscoveryController.cs" Line="85" Column="3" />
       <File FileName="src\Model\BattleShipsGame.cs" Line="123" Column="36" />
-      <File FileName="src\EndingGameController.cs" Line="31" Column="16" />
+      <File FileName="src\EndingGameController.cs" Line="44" Column="38" />
       <File FileName="src\Model\Player.cs" Line="125" Column="39" />
       <File FileName="src\HighScoreController.cs" Line="32" Column="3" />
       <File FileName="BattleShip Status" />

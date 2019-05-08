@@ -41,7 +41,8 @@ static class EndingGameController
 				GameController.CurrentState=GameState.ViewingMainMenu;
 */
 			GameLogic.GameLogic._time.Reset();
-			GameController.CurrentState=GameState.ViewingMainMenu;
+			GameController.EndCurrentState ();
+			GameController.EndCurrentState();
 		
 		} 
 		else {
