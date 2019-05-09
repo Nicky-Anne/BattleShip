@@ -85,8 +85,8 @@ public static class GameResources
 
     private static void LoadMusic()
     {
-        NewMusic("BGM", "Pirates.mp3");
-        NewMusic("BGM1", "horrordrone.mp3");
+        NewMusic("BGM1", "Pirates.mp3");
+        //NewMusic("BGM1", "horrordrone.mp3");
 		NewMusic ("BGM2", "bat_ship.mp3");
 		NewMusic ("BGM3", "bgm3.mp3");
         NewMusic ("Off", "off.wav");

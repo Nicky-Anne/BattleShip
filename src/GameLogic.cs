@@ -19,7 +19,7 @@ namespace GameLogic
             // Load Resources
             GameResources.LoadResources();
 
-            SwinGame.PlayMusic(GameResources.GameMusic("BGM"));
+            SwinGame.PlayMusic(GameResources.GameMusic("BGM1"));
 
             // Game Loop
             while (!(true == SwinGame.WindowCloseRequested() || GameController.CurrentState == GameState.Quitting))
